@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pygame # might be required by gymnasium rendering
+gymnasium[box2d]
+numpy
