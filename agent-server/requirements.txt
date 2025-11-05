@@ -1,0 +1,9 @@
+httpx
+requests
+gymnasium[box2d]
+pygame
+stable-baselines3[extra]
+
+fastapi
+uvicorn
+numpy
