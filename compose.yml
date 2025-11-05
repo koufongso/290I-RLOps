@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  agent-server:
+    build: ./agent-server
+    networks:
+      - rl_network
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./agent/trained_models:/app/trained_models
+    environment:
+      - SIMULATOR_API_URL=http://simulator-server:8080
+
+  simulator-server:
+    build: ./simulator-server
+    networks:
+      - rl_network
+    ports:
+      - "8080:8080"
+
+networks:
+  rl_network:
+    driver: bridge
