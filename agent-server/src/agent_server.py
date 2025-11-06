@@ -4,6 +4,9 @@ from typing import Optional
 import asyncio 
 
 from agent import Agent 
+import os
+
+SIMULATOR_API_URL = os.getenv("SIMULATOR_API_URL")
 
 app = FastAPI()
 
@@ -44,6 +47,7 @@ async def run_prediction_in_background(agent: Agent, simulator_id: str,
             simulator_id,
             simulator_environment,
             api_url,
+            eval_episodes,
             load_path
         )
     except Exception as e:
@@ -83,7 +87,7 @@ async def delete_agent(agent_id: str):
         raise HTTPException(status_code=404, detail="Agent not found")
 
 @app.post("/agents/{agent_id}/train")
-async def train_agent(agent_id: str, simulator_id: str, simulator_environment: str, api_url: str):
+async def train_agent(agent_id: str, simulator_id: str, simulator_environment: str, api_url: str = SIMULATOR_API_URL):
     agent = agents_list.get(agent_id)
     if not agent:
         raise HTTPException(status_code=404, detail="Agent not found")
@@ -102,7 +106,7 @@ async def train_agent(agent_id: str, simulator_id: str, simulator_environment: s
 
 
 @app.post("/agents/{agent_id}/predict")
-async def predict_agent(agent_id: str, simulator_id: str, simulator_environment: str, api_url: str, eval_episodes: Optional[int] = 100, load_path: Optional[str] = None):
+async def predict_agent(agent_id: str, simulator_id: str, simulator_environment: str, api_url: str = SIMULATOR_API_URL, eval_episodes: Optional[int] = 100, load_path: Optional[str] = None):
     agent = agents_list.get(agent_id)
     if not agent:
         raise HTTPException(status_code=404, detail="Agent not found")
