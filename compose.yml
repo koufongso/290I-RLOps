@@ -19,6 +19,19 @@ services:
     ports:
       - "8080:8080"
 
+  orchestrator-server:
+    build: ./orchestrator-server
+    networks:
+      - rl_network
+    ports:
+      - "8082:8082"
+    depends_on:
+      - agent-server
+      - simulator-server
+    environment:
+      - SIMULATOR_API_URL=http://simulator-server:8080
+      - AGENT_API_URL=http://agent-server:8081
+
 networks:
   rl_network:
     driver: bridge
