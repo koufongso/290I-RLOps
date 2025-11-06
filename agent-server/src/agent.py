@@ -25,8 +25,8 @@ class Agent:
                 raise ValueError(f"Unknown simulator environment: {simulator_environment}")
             
             # create the model
-            self.model = DQN("MlpPolicy", wrapper, verbose=0)
-
+            self.model = DQN("MlpPolicy", wrapper, verbose=1)
+            wrapper.reset() # reset the env before training
             print(f"Agent {self.id} start training...")
             self.model.learn(total_timesteps=int(2e5), progress_bar=True)
             print(f"Agent {self.id} finished training.")
@@ -65,6 +65,7 @@ class Agent:
             if model_to_use is None:
                 raise ValueError("Agent has no trained model. Either train or load a model.")
 
+            wrapper.reset() # reset the env before predicting
             print(f"Agent {self.id} start predicting...")
             mean_reward, std_reward = evaluate_policy(
                 model_to_use, 
