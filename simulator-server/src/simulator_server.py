@@ -20,7 +20,7 @@ class SimulatorConfig(BaseModel):
 async def create_simulator(config: SimulatorConfig):
     global simulator_list
 
-    if config.environment == "LunarLander":   
+    if config.environment == "LunarLander-v3":   
         config_dict = config.config if config.config is not None else {}
         simulator = LunarLanderSimulator(
             config_dict.get("continuous", False), 
