@@ -97,7 +97,7 @@ class TrainRequest(BaseModel):
     filename: Optional[str] = None
 
 @app.post("/agents/{agent_id}/train")
-async def train_agent(agent_id: str, request_body: TrainRequest): # <-- Use the model
+async def train_agent(agent_id: str, request_body: TrainRequest):
     agent = agents_list.get(agent_id)
     if not agent:
         raise HTTPException(status_code=404, detail="Agent not found")
@@ -125,7 +125,7 @@ class PredictRequest(BaseModel):
     save_filename: Optional[str] = None
 
 @app.post("/agents/{agent_id}/predict")
-async def predict_agent(agent_id: str, request_body: PredictRequest): # <-- Use the model
+async def predict_agent(agent_id: str, request_body: PredictRequest):
     agent = agents_list.get(agent_id)
     if not agent:
         raise HTTPException(status_code=404, detail="Agent not found")

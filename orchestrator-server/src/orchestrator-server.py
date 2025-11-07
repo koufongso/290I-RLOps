@@ -8,11 +8,7 @@ import os
 SIMULATOR_API_URL = os.getenv("SIMULATOR_API_URL")
 AGENT_API_URL = os.getenv("AGENT_API_URL")
 
-
 app = FastAPI()
-
-# global variables to hold the agent-simulation experiments (id) pairs   
-experiment_list = {}
 
 @app.post("/agents")
 async def create_agent(agent_api_url: str = AGENT_API_URL):

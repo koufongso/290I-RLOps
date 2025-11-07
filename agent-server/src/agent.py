@@ -15,7 +15,6 @@ class Agent:
         self.error_message = None   # error message for train/predict if failed, need to be reset before each call
 
     def train(self, simulator_id: str, simulator_environment: str, api_url: str, total_timesteps: int = 20000, filename: str = None):
-        # self.status = "training" # This is now set by the server
         wrapper = None
         self.error_message = None
         self.result_message = None
