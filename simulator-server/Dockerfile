@@ -30,4 +30,4 @@ EXPOSE 8080
 
 # Run the app
 ENTRYPOINT ["uvicorn"]
-CMD ["simulator_server:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["simulator_server:app", "--host", "0.0.0.0", "--port", "8080", "--log-level", "warning"]
