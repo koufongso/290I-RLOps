@@ -12,6 +12,10 @@ SIMULATOR_API_URL = os.getenv("SIMULATOR_API_URL")
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the agent API!"}
+
 # global variables to hold the current simulator env and state
 agents_list = {}
 

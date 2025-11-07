@@ -10,6 +10,10 @@ AGENT_API_URL = os.getenv("AGENT_API_URL")
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the orchestrator API!"}
+
 @app.post("/agents")
 async def create_agent(agent_api_url: str = AGENT_API_URL):
     async with httpx.AsyncClient(base_url=agent_api_url) as client:

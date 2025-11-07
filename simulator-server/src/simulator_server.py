@@ -8,6 +8,10 @@ from simulator import LunarLanderSimulator
 # Server to manage simulator envs
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the simulator API!"}
+
 # global variables to hold the current simulator env and state
 simulator_list = {}
 
