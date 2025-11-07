@@ -68,6 +68,36 @@ async def delete_agent(agent_id: str, agent_api_url: str = AGENT_API_URL):
         response = await client.delete(f"/agents/{agent_id}")
     return response.json()
 
+class TrainRequest(BaseModel):
+    agent_id: str
+    simulator_id: str
+    simulator_environment: str
+    api_url: Optional[str] = SIMULATOR_API_URL
+    total_timesteps: Optional[int] = 20000
+    filename: Optional[str] = None
+
+@app.post("/services/train")
+async def train_agent(request: TrainRequest):
+    # send the request to the agent server
+    async with httpx.AsyncClient(base_url=AGENT_API_URL) as client:
+        response = await client.post(f"/agents/{request.agent_id}/train", json=request.model_dump())
+    return response.json()
+
+class PredictRequest(BaseModel):
+    agent_id: str
+    simulator_id: str
+    simulator_environment: str
+    api_url: Optional[str] = SIMULATOR_API_URL
+    eval_episodes: Optional[int] = 10
+    save_filename: Optional[str] = None
+
+@app.post("/services/predict")
+async def predict_agent(request: PredictRequest):
+    # send the request to the agent server
+    async with httpx.AsyncClient(base_url=AGENT_API_URL) as client:
+        response = await client.post(f"/agents/{request.agent_id}/predict", json=request.model_dump())
+    return response.json()
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
